@@ -3,13 +3,10 @@ extends layout
 block content
     h1 This is Nuggets. page
     p Welcome to Pug #{title}
-    - const results = [ { name: 'vegNuggets', size: 'Medium', price: 20 }, { name: 'PotatoNuggets', size: 'Large', price: 30 }, { name: 'CarrotNuggets', size: 'Small', price: 15 }]
-
-    div.container-fluid
-    div.row
-        each item,index in results
-            div.col-sm-2
-            div
+    - let items = results 
+     div(class = "container-fluid")
+      div(class = "row" )
+        each item,index in items
             div(class="col-sm-2" onclick=`buy (${index})`) Name: #{item.name}
             div(class="col-sm-2" onclick=`buy (${index})`) Size: #{item.size}
             div(class="col-sm-2" onclick=`buy (${index})`) Price: $#{item.price}
