@@ -33,7 +33,7 @@ mongoose.connect(connectionString);
 if (!connectionString) {
   console.error("MongoDB connection string is undefined. Check your .env file.");
 } else {
-  mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+  mongoose.connect("mongodb+srv://Alnrvlprsr123:Alnrvlprsr123@atlascluster.lz7m3a2.mongodb.net/?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
 
   var db = mongoose.connection;
   db.on('error', console.error.bind(console, 'MongoDB connection error:'));
