@@ -17,18 +17,31 @@ const connectionString =process.env.MONGO_CON
 console.log("Connection String *********** ", connectionString);
 
 //mongoose.connect(connectionString);
-mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(connectionString);
 
 
 //Get the default connection
-var db = mongoose.connection;
+// var db = mongoose.connection;
 
 //Bind connection to error event
-db.on('error', console.error.bind(console, 'MongoDB connectionerror:'));
-db.once("open", function(){
-console.log("Connection to DB succeeded")});
+// db.on('error', console.error.bind(console, 'MongoDB connectionerror:'));
+// db.once("open", function(){
+// console.log("Connection to DB succeeded")});
 
 //const mongoose = require("mongoose")
+
+if (!connectionString) {
+  console.error("MongoDB connection string is undefined. Check your .env file.");
+} else {
+  mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+
+  var db = mongoose.connection;
+  db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+  db.once('open', function () {
+    console.log('Connected to MongoDB successfully');
+  });
+}
+
 
 
 var searchresults = require("./models/searchresults");
