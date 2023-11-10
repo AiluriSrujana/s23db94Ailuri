@@ -28,7 +28,7 @@ db.on('error', console.error.bind(console, 'MongoDB connectionerror:'));
 db.once("open", function(){
 console.log("Connection to DB succeeded")});
 
-const mongoose = require("mongoose")
+//const mongoose = require("mongoose")
 
 
 
