@@ -14,9 +14,10 @@ var resourceRouter = require('./routes/resource');
 
 require('dotenv').config();
 const connectionString =process.env.MONGO_CON
+console.log("Connection String *********** ", connectionString);
 
 //mongoose.connect(connectionString);
-mongoose.connect(process.env.MONGO_CON, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 //Get the default connection
