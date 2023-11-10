@@ -14,7 +14,9 @@ var resourceRouter = require('./routes/resource');
 require('dotenv').config();
 const connectionString =process.env.MONGO_CON
 const mongoose = require('mongoose');
-mongoose.connect(connectionString);
+//mongoose.connect(connectionString);
+mongoose.connect(process.env.MONGO_CON, { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 //Get the default connection
 var db = mongoose.connection;
