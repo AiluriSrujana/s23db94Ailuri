@@ -18,12 +18,3 @@ router.get('/searchresults/:id', searchresults_controller.searchresults_detail);
 // GET request for list of all Costume items.
 router.get('/searchresults', searchresults_controller.searchresults_list);
 module.exports = router;
-// API for our resources
-exports.api = function(req, res) {
-res.write('[');
-res.write('{"resource":"costumes", ');
-res.write(' "verbs":["GET","PUT", "DELETE"] ');
-res.write('}');
-res.write(']')
-res.send();
-};

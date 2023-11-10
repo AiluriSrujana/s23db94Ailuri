@@ -49,7 +49,7 @@ async function recreateDB() {
   // Delete everything
   await searchresults.deleteMany();
   let instance1 = new searchresults({
-    name: "vegNuggets",
+    name: "cabbageNuggets",
     size: 'Medium',
     price: 20
   });

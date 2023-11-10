@@ -11,10 +11,17 @@ exports.searchresults_list = async function(req, res) {
     }
     };
     
-
+    
 // for a searchresults .
-exports.searchresults_detail = function(req, res) {
-res.send('NOT IMPLEMENTED: searchresults detail: ' + req.params.id);
+exports.searchresults_detail = async function(req, res) {
+    console.log("detail" + req.params.id)
+    try {
+    result = await searchresults.findById( req.params.id)
+    res.send(result)
+    } catch (error) {
+    res.status(500)
+    res.send(`{"error": document for id ${req.params.id} not found`);
+    }
 };
 // Handle searchresults create on POST.
 // Handle Costume create on POST.
@@ -43,8 +50,24 @@ exports.searchresults_delete = function(req, res) {
 res.send('NOT IMPLEMENTED: searchresults delete DELETE ' + req.params.id);
 };
 // Handle searchresults update form on PUT.
-exports.searchresults_update_put = function(req, res) {
-res.send('NOT IMPLEMENTED: searchresults update PUT' + req.params.id);
+exports.searchresults_update_put = async function(req, res) {
+        console.log(`update on id ${req.params.id} with body
+        ${JSON.stringify(req.body)}`)
+        try {
+        let toUpdate = await Searchresults.findById( req.params.id)
+        // Do updates of properties
+        if(req.body.searchresults_type)
+        toUpdate.searchresults_type = req.body.searchresults_type;
+        if(req.body.cost) toUpdate.cost = req.body.cost;
+        if(req.body.size) toUpdate.size = req.body.size;
+        let result = await toUpdate.save();
+        console.log("Sucess " + result)
+        res.send(result)
+        } catch (err) {
+        res.status(500)
+        res.send(`{"error": ${err}: Update for id ${req.params.id}
+        failed`);
+        }
 };
 exports.searchresults_view_all_Page = async function(req, res) {
     try{
@@ -56,3 +79,5 @@ exports.searchresults_view_all_Page = async function(req, res) {
     res.send(`{"error": ${err}}`);
     }
     };
+
+    // for a specific Searchresults.
