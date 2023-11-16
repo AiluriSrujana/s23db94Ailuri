@@ -81,3 +81,66 @@ exports.searchresults_view_all_Page = async function(req, res) {
     };
 
     // for a specific Searchresults.
+    // Handle Costume delete on DELETE.
+exports.searchresults_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await searchresults.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": Error deleting ${err}}`);
+    }
+    };
+// Handle a show one view with id specified by query
+exports.searchresults_view_one_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id)
+    try{
+    result = await searchresults.findById( req.query.id)
+    res.render('searchresultsdetail',
+    { title: 'searchresultsDetail', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+exports.searchresults_create_Page = function(req, res) {
+    console.log("create view")
+    try{
+    res.render('searchresultscreate', { title: 'searchResultsCreate'});
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+// Handle building the view for updating a costume.
+// query provides the id
+exports.searchresults_update_Page = async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+    let result = await searchresults.findById(req.query.id)
+    res.render('searchresultsupdate', { title: 'searchresultsUpdate', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+    // Handle a delete one view with id from query
+exports.searchresults_delete_Page = async function(req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try{
+    result = await searchresults.findById(req.query.id)
+    res.render('searchresultsdelete', { title: 'searchresultsDelete', toShow:
+    result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+    
+    

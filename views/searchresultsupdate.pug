@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  h1= title
+
+  if (toShow == null)
+    h2 No instance to update details
+  else
+    - let searchresultsid = toShow._id
+    - let name = toShow.name
+    - let size = toShow.size
+    - let price = toShow.price
+    div.row(class='mb-2')
+      div.mr-1 ID is
+        div #{searchresultsid}
+      - let actionid = "/resource/searchresults/" + searchresultsid
+      form(id='searchresultsForm', action=actionid, method="POST")
+        div.form-group
+          label.searchresultsAttr(for='name') Nuggets_Name
+          input#name(type='text' name='name' value=name)
+        div.form-group
+          label.searchresultsAttr(for='size') NuggetsSize
+          input#size(type='text' name='size' value=size)
+        div.form-group
+          label.searchresultssAttr(for='price') NuggetsPrice
+          input#price(type='text' name='price' value=price)
+        button#btnId(type='button') Submit
+    
+      script.
+        document.forms['searchresultsForm'].addEventListener('submit', (event) => {
+          event.preventDefault();
+          fetch(event.target.action, {
+            method: 'PUT', // Use PUT method
+            body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+          })
+            .then((resp) => {
+              return resp.text();
+            })
+            .then((body) => {
+              alert("Update succeeded");
+            })
+            .catch((error) => {
+              alert("Update failed: " + error);
+            });
+        });

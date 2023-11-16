@@ -6,3 +6,41 @@ body {
 a {
   color: #00B7FF;
 }
+/*.searchresultsAttr {
+  background-color: pink;
+  width: 100%;
+  }
+#name {
+  border-color: azure;
+}
+#size {
+border-color: bisque;
+}
+#price {
+  border-color: brown;
+}
+#btnId
+{
+  background-color:green;
+  text-align: center;
+}
+#btnId:hover
+{
+  background-color:pink;
+  text-align: center;
+}
+label {
+  
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color:red;
+  margin-bottom: 5px;
+  
+}
+.searchresultsAttr
+{
+  text-shadow: #00B7FF;
+  text-align: center;
+  
+}
+
