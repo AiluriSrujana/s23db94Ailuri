@@ -1,27 +1,25 @@
 extends layout
 
 block content
-    h1 This is Nuggets. page
-    p Welcome to Pug #{title}
-    - let items = results 
-     div(class = "container-fluid")
-      div(class = "row" )
-        each item,index in items
-            div(class="col-sm-2" onclick=`buy (${index})`) Name: #{item.name}
-            div(class="col-sm-2" onclick=`buy (${index})`) Size: #{item.size}
-            div(class="col-sm-2" onclick=`buy (${index})`) Price: $#{item.price}
-            - let destination = `dispatch(\"/searchresults/update?id=${item._id}\")`
-            button.btn( class="btn-primary ml-1", onclick= destination) Update
-    script.
-      function buy(itemNum){
-        
-        alert(`you purchased item ${itemNum+1}`)
+  h1= title
+  - let des = `dispatch("/searchresults/create")`
+  button.btn.btn-primary.ml-1(onclick=des) Create
+  -
+    let items = results
+  div.container-fluid
+    each item, index in items
+      - let destination = `dispatch("/searchresults/update?id=${item._id}")`
+      - let destination1 = `dispatch("/searchresults/detail?id=${item._id}")`
+      - let destination2 = `dispatch("/searchresults/delete?id=${item._id}")`
+      .card.m-1
+        .card-body
+          h5.card-title Item #{item.name} (#{item.size})
+          p.card-text Price: $#{item.price}
+          button.btn.btn-info.ml-1(onclick=destination) Update
+          button.btn.btn-success.ml-1(onclick=destination1) Details
+          button.btn.btn-danger.ml-1(onclick=destination2) Delete
 
-     }
-     function dispatch(path){
-        window.location.href=path
-     }
-
-
-       
-        
+  script.
+    function dispatch(path){
+      window.location.href = path;
+    }

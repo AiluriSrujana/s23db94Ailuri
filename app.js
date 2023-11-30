@@ -15,10 +15,10 @@ var chooseRouter = require('./routes/choose');
 var resourceRouter = require('./routes/resource');
 
 require('dotenv').config();
-const connectionString =process.env.MONGO_CON
-console.log("Connection String *********** ", connectionString);
+// const connectionString =process.env.MONGO_CON
+// console.log("Connection String *********** ", connectionString);
 
-//mongoose.connect(connectionString);
+// mongoose.connect(connectionString);
 mongoose.connect("mongodb+srv://Alnrvlprsr123:Alnrvlprsr123@atlascluster.lz7m3a2.mongodb.net/?retryWrites=true&w=majority");
 
 

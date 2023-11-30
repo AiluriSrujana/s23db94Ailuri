@@ -1,29 +1,58 @@
 var searchresults = require('../models/searchresults');
-// List of all searchresults.
+// List of all searchresults
+exports.searchresults_list = function(req, res) {
+ res.send('NOT IMPLEMENTED: searchresults list');
+};
+// for a specific searchresults.
+exports.searchresults_detail = function(req, res) {
+ res.send('NOT IMPLEMENTED: searchresults detail: ' + req.params.id);
+};
+// Handle searchresults create on POST.
+exports.searchresults_create_post = function(req, res) {
+ res.send('NOT IMPLEMENTED: searchresults create POST');
+};
+ // Handle Costume delete on DELETE.
+   exports.searchresults_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await searchresults.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": Error deleting ${err}}`);
+    }
+   }
+// Handle searchresults update form on PUT.
+exports.searchresults_update_put = function(req, res) {
+ res.send('NOT IMPLEMENTED: searchresults update PUT' + req.params.id);
+};
+
+// List of all Costumes
 exports.searchresults_list = async function(req, res) {
     try{
-    searchresults = await searchresults.find();
-    res.send(searchresults);
+    thesearchresults = await searchresults.find();
+    res.send(thesearchresults);
     }
     catch(err){
     res.status(500);
     res.send(`{"error": ${err}}`);
     }
-    };
-    
-    
-// for a searchresults .
-exports.searchresults_detail = async function(req, res) {
-    console.log("detail" + req.params.id)
-    try {
-    result = await searchresults.findById( req.params.id)
-    res.send(result)
-    } catch (error) {
-    res.status(500)
-    res.send(`{"error": document for id ${req.params.id} not found`);
+   };
+
+// VIEWS
+// Handle a show all view
+exports.searchresults_view_all_Page = async function(req, res) {
+    try{
+    thesearchresults = await searchresults.find();
+    res.render('searchresults', { title: 'searchresults Search Results', results: thesearchresults });
     }
-};
-// Handle searchresults create on POST.
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+   };
+
 // Handle Costume create on POST.
 exports.searchresults_create_post = async function(req, res) {
     console.log(req.body)
@@ -43,104 +72,96 @@ exports.searchresults_create_post = async function(req, res) {
     res.status(500);
     res.send(`{"error": ${err}}`);
     }
-    };
-    
-// Handle searchresults delete form on DELETE.
-exports.searchresults_delete = function(req, res) {
-res.send('NOT IMPLEMENTED: searchresults delete DELETE ' + req.params.id);
-};
-// Handle searchresults update form on PUT.
-exports.searchresults_update_put = async function(req, res) {
-        console.log(`update on id ${req.params.id} with body
-        ${JSON.stringify(req.body)}`)
-        try {
-        let toUpdate = await Searchresults.findById( req.params.id)
-        // Do updates of properties
-        if(req.body.searchresults_type)
-        toUpdate.searchresults_type = req.body.searchresults_type;
-        if(req.body.cost) toUpdate.cost = req.body.cost;
-        if(req.body.size) toUpdate.size = req.body.size;
-        let result = await toUpdate.save();
-        console.log("Sucess " + result)
-        res.send(result)
-        } catch (err) {
-        res.status(500)
-        res.send(`{"error": ${err}: Update for id ${req.params.id}
-        failed`);
-        }
-};
-exports.searchresults_view_all_Page = async function(req, res) {
-    try{
-    searchresults = await searchresults.find();
-    res.render('searchresults', { title: ' Search Results', results: searchresults});
-    }
-    catch(err){
-    res.status(500);
-    res.send(`{"error": ${err}}`);
-    }
-    };
+   };
 
-    // for a specific Searchresults.
-    // Handle Costume delete on DELETE.
-exports.searchresults_delete = async function(req, res) {
-    console.log("delete " + req.params.id)
+   // for a specific Costume.
+exports.searchresults_detail = async function(req, res) {
+    console.log("detail" + req.params.id)
     try {
-    result = await searchresults.findByIdAndDelete( req.params.id)
-    console.log("Removed " + result)
+    result = await searchresults.findById( req.params.id)
+    res.send(result)
+    } catch (error) {
+    res.status(500)
+    res.send(`{"error": document for id ${req.params.id} not found`);
+    }
+   };
+
+   // Handle Costume update form on PUT.
+exports.searchresults_update_put = async function(req, res) {
+    console.log(`update on id ${req.params.id} with body
+   ${JSON.stringify(req.body)}`)
+    try {
+    let toUpdate = await searchresults.findById( req.params.id)
+    // Do updates of properties
+    if(req.body.name)
+    toUpdate.name = req.body.name;
+    if(req.body.size ) toUpdate.size = req.body.size;
+    if(req.body.price) toUpdate.price = req.body.price;
+    let result = await toUpdate.save();
+    console.log("Sucess " + result)
     res.send(result)
     } catch (err) {
     res.status(500)
-    res.send(`{"error": Error deleting ${err}}`);
+    res.send(`{"error": ${err}: Update for id ${req.params.id}
+   failed`);
     }
-    };
-// Handle a show one view with id specified by query
+   };
+
+   // Handle a show one view with id specified by query
 exports.searchresults_view_one_Page = async function(req, res) {
     console.log("single view for id " + req.query.id)
     try{
     result = await searchresults.findById( req.query.id)
-    res.render('searchresultsdetail',
-    { title: 'searchresultsDetail', toShow: result });
+    res.render('searchresultsdetail', 
+   { title: 'searchresults Detail', toShow: result });
     }
     catch(err){
     res.status(500)
     res.send(`{'error': '${err}'}`);
     }
-    };
+   }
+
+   // Handle building the view for creating a costume.
+// No body, no in path parameter, no query.
+// Does not need to be async
 exports.searchresults_create_Page = function(req, res) {
     console.log("create view")
     try{
-    res.render('searchresultscreate', { title: 'searchResultsCreate'});
+    res.render('searchresultscreate', { title: 'searchresults Create'});
     }
     catch(err){
     res.status(500)
     res.send(`{'error': '${err}'}`);
     }
-    };
-// Handle building the view for updating a costume.
+   };
+
+   // Handle building the view for updating a costume.
 // query provides the id
 exports.searchresults_update_Page = async function(req, res) {
-    console.log("update view for item "+req.query.id)
-    try{
-    let result = await searchresults.findById(req.query.id)
-    res.render('searchresultsupdate', { title: 'searchresultsUpdate', toShow: result });
-    }
-    catch(err){
-    res.status(500)
-    res.send(`{'error': '${err}'}`);
-    }
-    };
-    // Handle a delete one view with id from query
+ console.log("update view for item "+req.query.id)
+ try{
+ let result = await searchresults.findById(req.query.id)
+ res.render('searchresultsupdate', { title: 'searchresults Update', toShow: result });
+ }
+ catch(err){
+ res.status(500)
+ res.send(`{'error': '${err}'}`);
+ }
+};
+
+// Handle a delete one view with id from query
 exports.searchresults_delete_Page = async function(req, res) {
     console.log("Delete view for id " + req.query.id)
     try{
     result = await searchresults.findById(req.query.id)
-    res.render('searchresultsdelete', { title: 'searchresultsDelete', toShow:
-    result });
+    res.render('searchresultsdelete', { title: 'searchresults Delete', toShow: 
+   result });
     }
     catch(err){
     res.status(500)
     res.send(`{'error': '${err}'}`);
     }
-    };
-    
-    
+   };
+   
+
+  

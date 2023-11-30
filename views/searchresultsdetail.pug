@@ -1,22 +1,25 @@
 extends layout
 
 block content
-  h1= title
+  h1(style='color: #3498db;')= title
   - let _id = toShow._id
   - let name = toShow.name
   - let size = toShow.size
   - let price = toShow.price
 
-  div
-    div.row
-      div(class='searchresultsAttr mr-3') Nuggets ID is:#{_id}
+  div(style='margin-top: 20px;')
+    div.row(style='margin-bottom: 10px;')
+      div.searchresultsAttr.mr-3(style='color: #e74c3c; font-weight: bold;') Nuggets ID is:
+      div(style='color: #e74c3c;') #{_id}
 
-    div.row
-      div(class='searchresultsAttr mr-3') Nuggets Type is:#{name}
+    div.row(style='margin-bottom: 10px;')
+      div.searchresultsAttr.mr-3(style='color: #27ae60; font-weight: bold;') Nuggets Type is:
+      div(style='color: #27ae60;') #{name}
 
-    div.row
-      div(class='searchresultsAttr mr-3') Nuggets Size is: #{size}
+    div.row(style='margin-bottom: 10px;')
+      div.searchresultsAttr.mr-3(style='color: #3498db; font-weight: bold;') Nuggets Size is:
+      div(style='color: #3498db;') #{size}
 
-    div.row
-      div(class='searchresultsAttr mr-3') Nuggets Cost is: #{price}
-
+    div.row(style='margin-bottom: 10px;')
+      div.searchresultsAttr.mr-3(style='color: #f39c12; font-weight: bold;') Nuggets Cost is:
+      div(style='color: #f39c12;') #{price}

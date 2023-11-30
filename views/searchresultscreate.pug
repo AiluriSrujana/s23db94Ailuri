@@ -1,17 +1,18 @@
 extends layout
+
 block content
-  h1= title
+  h1(style='color: #3498db;')= title
   form(id='searchresultsForm', action="/resource/searchresults", method="POST")
     div.form-group
-      label.searchresultsAttr(for='name') NuggetsName
-      input#name(type='text', name='name')
+      label.searchresultsAttr(for='name' style='color: red;') NuggetsName
+      input#name(type='text', name='name', class='form-control')
     div.form-group
-      label.searchresultsAttr(for='size') NuggetsSize
-      input#size(type='text', name='size')
+      label.searchresultsAttr(for='size' style='color: green;') NuggetsSize
+      input#size(type='text', name='size', class='form-control')
     div.form-group
-      label.searchresultsAttr(for='price') NuggetsPrice
-      input#price(type='number', name='price')
-    button#btnId(type='button') Submit
+      label.searchresultsAttr(for='price' style='color: yellow;') NuggetsPrice
+      input#price(type='number', name='price', class='form-control')
+    button#btnId(type='button', class='btn btn-primary', style='background-color: #3498db; color: #fff;') Submit
   script.
     document.forms['searchresultsForm'].addEventListener('submit', (event) => {
       event.preventDefault();

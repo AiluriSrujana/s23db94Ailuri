@@ -1,23 +1,12 @@
 extends layout
 
 block content
-  h1 This is index.pug page
-  p Welcome to Pug #{title}
-  button(type="button", class="btn btn-success") PressMe
-  div.container
-  div#mphDisplay
-    | MPH #{mph} with change #{change}.
-  button(onclick='goFaster()') Go Faster
-  
-  script.
-    var mph = 20;
-    var change = 1;
-   function goFaster()
-    {
-       
-        mph =mph+change;
-        change++;
-        document.getElementById('mphDisplay').textContent = `MPH ${mph} with change ${change}`;
-    }
-  
-  a(href='/searchresults') nuggets
+  if (!user)
+    a(href="/login") Login
+    br
+    a(href="/register") Register
+  if (user)
+    p You are currently logged in as #{user.username}
+    a(href="/searchresults") Take me to Searchresults
+    br
+    a(href="/logout") Logout
